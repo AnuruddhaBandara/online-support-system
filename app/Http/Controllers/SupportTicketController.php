@@ -16,7 +16,7 @@ class SupportTicketController extends Controller
      */
     public function index()
     {
-        $supportTicket = SupportTicket::get();
+        $supportTicket = SupportTicket::paginate(10);
         return view('tickets.index', compact('supportTicket'));
     }
 
@@ -85,5 +85,9 @@ class SupportTicketController extends Controller
     public function destroy(SupportTicket $supportTicket)
     {
         //
+    }
+
+    public function search(Request $request){
+
     }
 }

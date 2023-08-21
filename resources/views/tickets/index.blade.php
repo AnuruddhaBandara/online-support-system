@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md">
             <div class="card">
                 <div class="card-header">{{ __('Open Tickets') }}</div>
 
@@ -20,36 +20,44 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Customer Name</th>
+                                        <th>ID</th>
                                         <th>Ticket No</th>
+                                        <th>Customer Name</th>
                                         <th>Status</th>
-                                        <th>Last Updated</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($supportTicket as $ticket)
+                                @foreach ($supportTicket as $id => $ticket)
                                     <tr>
-                                        <td>{{$ticket->customer_name}}</td>
-
+                                        <td>{{ $id+1 }}</td>
                                         <td>
                                             <a href="{{ url('tickets/'. $ticket->reference_number) }}">
                                                 #{{ $ticket->reference_number }}
                                             </a>
                                         </td>
+                                        <td>{{$ticket->customer_name}}</td>
+
                                         <td>
-                                        @if ($ticket->status === 'pending')
-                                            <span class="label label-info">{{ $ticket->status }}</span>
+                                        @if ($ticket->status == \App\Models\SupportTicket::STATUS_NEW)
+                                            <span class="label badge bg-secondary">{{ $ticket->status }}</span>
                                         @else
                                             <span class="label label-danger">{{ $ticket->status }}</span>
                                         @endif
                                         </td>
-                                        <td>{{ $ticket->updated_at }}</td>
+                                        <td>{{ $ticket->created_at }}</td>
+                                        <td>Reply, Pick</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
 
-                            {{-- {{ $supportTicket->render() }} --}}
+                            <div class="row mb-3">
+                                <div class="col-md d-flex justify-content-end">
+                                    {{ $supportTicket->render() }}
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>

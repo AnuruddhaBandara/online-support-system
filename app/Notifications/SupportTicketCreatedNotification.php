@@ -41,7 +41,7 @@ class SupportTicketCreatedNotification extends Notification
             ->line('Dear ' . $this->data['customer_name'] . '.')
             ->line('Your new Support Ticket is under review.')
             ->line('Support ticket id: ' . $this->data['reference_number'] . '.')
-            ->action('Notification Action', url(route('tickets.show', $this->data['reference_number'])))
+            ->action('View Progress', route('tickets.show', $this->data['reference_number']))
             ->line('We will get back to you soon!');
     }
 
