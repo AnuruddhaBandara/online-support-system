@@ -67,30 +67,6 @@ class SupportTicketController extends Controller
         return view('tickets.view', ['supportTicket' => $supportTicket]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SupportTicket $supportTicket)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SupportTicket $supportTicket)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SupportTicket $supportTicket)
-    {
-        //
-    }
-
     public function searchByCustomerName(Request $request)
     {
         $supportTicket = SupportTicket::where('customer_name', 'LIKE', '%' . request()->get('q') . '%')->orderByRaw("CASE WHEN status = 'new' THEN 1 ELSE 2 END, created_at DESC")->paginate(15);
