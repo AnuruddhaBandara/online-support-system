@@ -25,7 +25,6 @@ DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=
 
-<<<<<<< HEAD
 MAIL_MAILER=smtp
 MAIL_HOST=sandbox.smtp.mailtrap.io
 MAIL_PORT=587
@@ -35,9 +34,7 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="hello@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
 ```
-=======
 checkout to dev branch and get a pull
->>>>>>> 1f0ecbf (update readme file)
 
 ```
 php artisan migrate
