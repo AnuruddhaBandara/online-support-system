@@ -30,4 +30,12 @@ Route::get('/tickets/search/{searchParam}', [SupportTicketController::class, 'se
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/tickets', [SupportTicketController::class, 'index'])->name('tickets.all');
+    Route::get('/tickets/pick-ticket/{supportTicket}', [SupportTicketController::class, 'pickTicket'])->name('tickets.pick');
+    Route::get('/tickets/assign-me/{supportTicket}', [SupportTicketController::class, 'assignMe'])->name('tickets.assign');
+    Route::patch('/tickets/reply/{supportTicket}', [SupportTicketController::class, 'sendReply'])->name('tickets.reply');
+
+
+
+
+    Route::get('/tickets/change-variable', [SupportTicketController::class, 'changeVariable'])->name('change.variable');
 });

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SupportTicketCreatedNotification extends Notification
+class SupportTicketPickedNotification extends Notification
 {
     use Queueable;
 
@@ -37,12 +37,12 @@ class SupportTicketCreatedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->subject('New Support Ticket is created')
+            ->subject('Your Support Ticket is in Review')
             ->line('Dear ' . $this->data['customer_name'] . ',')
-            ->line('Your new Support Ticket is submitted successfully.')
+            ->line('Your new Support Ticket is under review.')
             ->line('Support ticket id: ' . $this->data['reference_number'] . '.')
             ->action('View Progress', route('tickets.show', $this->data['reference_number']))
-            ->line('We will get back to you soon!');
+            ->line('You will receive a reply from one of our agents soon!');
     }
 
     /**

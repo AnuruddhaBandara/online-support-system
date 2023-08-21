@@ -44,4 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function supportTickets()
+    {
+        return $this->hasMany(SupportTicket::class, 'agent_id', 'id');
+    }
 }

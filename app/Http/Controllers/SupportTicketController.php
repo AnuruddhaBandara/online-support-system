@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSupportTicketRequest;
+use App\Http\Requests\ReplySupportTicketRequest;
 use App\Models\SupportTicket;
 use App\Notifications\SupportTicketCreatedNotification;
+use App\Notifications\SupportTicketPickedNotification;
+use App\Notifications\SupportTicketCompletedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Jobs\SendEmailToCustomer;
+use Illuminate\Support\Facades\Auth;
 
 class SupportTicketController extends Controller
 {
@@ -92,4 +95,33 @@ class SupportTicketController extends Controller
     {
 
     }
+
+    public function pickTicket(SupportTicket $supportTicket)
+    {
+        return view('tickets.pick-ticket', ['supportTicket' => $supportTicket]);
+    }
+
+    public function assignMe(SupportTicket $supportTicket)
+    {
+        $supportTicket->agent_id = Auth::user()->id;
+        $supportTicket->status = SupportTicket::STATUS_IN_REVIEW;
+        $supportTicket->save();
+
+        $supportTicket->notify(new SupportTicketPickedNotification($supportTicket));
+
+        return redirect()->back()->with("status", "Ticket is assigned to you.");
+    }
+
+    public function sendReply(ReplySupportTicketRequest $request, SupportTicket $supportTicket)
+    {
+        $supportTicket->agent_id = Auth::user()->id;
+        $supportTicket->status = SupportTicket::STATUS_COMPLETED;
+        $supportTicket->agent_reply = $request->agent_reply;
+        $supportTicket->save();
+
+        $supportTicket->notify(new SupportTicketCompletedNotification($supportTicket));
+
+        return redirect()->back()->with("status", "Ticket is completed.");
+    }
+
 }

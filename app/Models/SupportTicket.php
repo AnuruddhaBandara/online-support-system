@@ -14,6 +14,8 @@ class SupportTicket extends Model
     use Notifiable;
 
     public const STATUS_NEW = 'new';
+    public const STATUS_IN_REVIEW = 'in_review';
+    public const STATUS_COMPLETED = 'completed';
 
     protected $fillable = [
         'customer_name',
@@ -25,4 +27,9 @@ class SupportTicket extends Model
         'agent_reply',
         'agent_id'
     ];
+
+    public function agent()
+    {
+        return $this->belongsTo(User::class, 'agent_id', 'id');
+    }
 }

@@ -29,11 +29,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $phpVariable = 100; ?>
                                 @foreach ($supportTicket as $id => $ticket)
                                     <tr>
                                         <td>{{ $id+1 }}</td>
                                         <td>
-                                            <a href="{{ url('tickets/'. $ticket->reference_number) }}">
+                                            <a href="{{ route('tickets.pick', $ticket->id) }}">
                                                 #{{ $ticket->reference_number }}
                                             </a>
                                         </td>
@@ -41,18 +42,35 @@
 
                                         <td>
                                         @if ($ticket->status == \App\Models\SupportTicket::STATUS_NEW)
-                                            <span class="label badge bg-secondary">{{ $ticket->status }}</span>
+                                            <span class="label badge bg-primary">{{ ucfirst($ticket->status) }}</span>
+                                        @elseif ($ticket->status == \App\Models\SupportTicket::STATUS_IN_REVIEW)
+                                            <span class="label badge bg-danger">{{ ucwords(str_replace("_", " ", $ticket->status)) }}</span>
+                                        @elseif ($ticket->status == \App\Models\SupportTicket::STATUS_COMPLETED)
+                                            <span class="label badge bg-success">{{ ucfirst($ticket->status) }}</span>
                                         @else
-                                            <span class="label label-danger">{{ $ticket->status }}</span>
+                                            <span class="label badge bg-danger">{{ ucfirst($ticket->status) }}</span>
                                         @endif
                                         </td>
                                         <td>{{ $ticket->created_at }}</td>
-                                        <td>Reply, Pick</td>
+                                        <td>
+                                            @if ($ticket->status == \App\Models\SupportTicket::STATUS_NEW)
+                                                 <a href="{{ route('tickets.pick', $ticket->id) }}" class="btn btn-warning view-record-btn">
+                                                    <i class="fa fa-pause" aria-hidden="true"></i> Pick
+                                                </a>
+                                            @elseif ($ticket->status == \App\Models\SupportTicket::STATUS_IN_REVIEW)
+                                                <a href="{{ route('tickets.pick', $ticket->id) }}" class="btn btn-success view-record-btn">
+                                                    <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                                                </a>
+                                            @elseif ($ticket->status == \App\Models\SupportTicket::STATUS_COMPLETED)
+                                                <a href="{{ route('tickets.pick', $ticket->id) }}" class="btn btn-info view-record-btn">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i> View
+                                                </a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
-
                             <div class="row mb-3">
                                 <div class="col-md d-flex justify-content-end">
                                     {{ $supportTicket->render() }}
