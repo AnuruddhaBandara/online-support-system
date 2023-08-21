@@ -17,6 +17,7 @@ class SupportTicketController extends Controller
     public function index()
     {
         $supportTicket = SupportTicket::paginate(10);
+        
         return view('tickets.index', compact('supportTicket'));
     }
 

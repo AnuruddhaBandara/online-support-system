@@ -22,10 +22,12 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/tickets', [SupportTicketController::class, 'index'])->name('tickets.all');
 Route::get('/tickets/create', [SupportTicketController::class, 'create'])->name('tickets.create');
 Route::post('/tickets', [SupportTicketController::class, 'store'])->name('tickets.store');
 Route::get('/tickets/{reference}', [SupportTicketController::class, 'show'])->name('tickets.show');
 Route::put('/tickets/{supportTicket}', [SupportTicketController::class, 'update'])->name('tickets.update');
 Route::get('/tickets/search/{searchParam}', [SupportTicketController::class, 'search'])->name('tickets.search');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tickets', [SupportTicketController::class, 'index'])->name('tickets.all');
+});
