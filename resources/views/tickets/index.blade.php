@@ -40,6 +40,7 @@
                                         <th>Ticket No</th>
                                         <th>Customer Name</th>
                                         <th>Status</th>
+                                        <th>Assigned</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
@@ -67,6 +68,7 @@
                                             <span class="label badge bg-danger">{{ ucfirst($ticket->status) }}</span>
                                         @endif
                                         </td>
+                                        <td>{{ $ticket->agent->name ?? ' - ' }}</td>
                                         <td>{{ $ticket->created_at }}</td>
                                         <td>
                                             @if ($ticket->status == \App\Models\SupportTicket::STATUS_NEW)
