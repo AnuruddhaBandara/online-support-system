@@ -36,7 +36,7 @@ class SupportTicketCreatedNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('New Support Ticket is created')
             ->line('Dear ' . $this->data['customer_name'] . '.')
             ->line('Your new Support Ticket is under review.')

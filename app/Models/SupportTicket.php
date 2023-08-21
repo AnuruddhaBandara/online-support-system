@@ -13,7 +13,7 @@ class SupportTicket extends Model
     use SoftDeletes;
     use Notifiable;
 
-    const STATUS_NEW = 'new';
+    public const STATUS_NEW = 'new';
 
     protected $fillable = [
         'customer_name',
