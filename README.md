@@ -44,7 +44,7 @@ npm install && npm run dev
 php artisan serve
 ```
 
-Please use below credentials to login as a Support Ticket Agent
+Please use bellow credentials to login as a Support Ticket Agent
 
 ```
 email: anuruddha@testmail.com
