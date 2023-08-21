@@ -26,7 +26,7 @@ Route::get('/tickets/create', [SupportTicketController::class, 'create'])->name(
 Route::post('/tickets', [SupportTicketController::class, 'store'])->name('tickets.store');
 Route::get('/tickets/{reference}', [SupportTicketController::class, 'show'])->name('tickets.show');
 Route::put('/tickets/{supportTicket}', [SupportTicketController::class, 'update'])->name('tickets.update');
-Route::get('/tickets/search', [SupportTicketController::class, 'searchByReference'])->name('tickets.customer.search');
+Route::get('/tickets/customer/search', [SupportTicketController::class, 'searchByReference'])->name('tickets.customer.search');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/tickets', [SupportTicketController::class, 'index'])->name('tickets.all');

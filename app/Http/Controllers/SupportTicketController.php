@@ -98,6 +98,17 @@ class SupportTicketController extends Controller
         return view('tickets.index', compact('supportTicket'));
     }
 
+    public function searchByReference(Request $request)
+    {
+        $supportTicket = SupportTicket::where('reference_number', trim($request->q))->first();
+
+        if (is_null($supportTicket)) {
+            return redirect()->back()->with("status", "Ticket not found for the Reference " . $request->q . ". Please check the reference number again.");
+        }
+
+        return view('tickets.view', ['supportTicket' => $supportTicket]);
+    }
+
     public function pickTicket(SupportTicket $supportTicket)
     {
         return view('tickets.pick-ticket', ['supportTicket' => $supportTicket]);

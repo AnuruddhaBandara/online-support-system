@@ -12,7 +12,7 @@
                         <label for="customer_name" class="col-md-4 col-form-label text-md-end">{{ __('Ticket Status:') }}</label>
 
                         <div class="col-md-6">
-                            <input class="form-control" value="{{ ucfirst($supportTicket->status) }}" readonly>
+                            <input class="form-control" value="{{ ucwords(str_replace("_", " ", $supportTicket->status)) }}" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
