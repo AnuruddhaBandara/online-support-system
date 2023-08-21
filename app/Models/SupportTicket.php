@@ -11,6 +11,8 @@ class SupportTicket extends Model
     use HasFactory;
     use SoftDeletes;
 
+    const STATUS_NEW = 'new';
+
     protected $fillable = [
         'customer_name',
         'problem_description',

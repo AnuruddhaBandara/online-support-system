@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('status');
             $table->text('agent_reply')->nullable();
             $table->unsignedInteger('agent_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
