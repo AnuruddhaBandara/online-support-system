@@ -19,7 +19,7 @@ class SupportTicketController extends Controller
      */
     public function index()
     {
-        $supportTicket = SupportTicket::paginate(10);
+        $supportTicket = SupportTicket::orderByRaw("CASE WHEN status = 'new' THEN 1 ELSE 2 END, created_at DESC")->paginate(15);
 
         return view('tickets.index', compact('supportTicket'));
     }
@@ -91,9 +91,11 @@ class SupportTicketController extends Controller
         //
     }
 
-    public function search(Request $request)
+    public function searchByCustomerName(Request $request)
     {
+        $supportTicket = SupportTicket::where('customer_name', 'LIKE', '%' . request()->get('q') . '%')->orderByRaw("CASE WHEN status = 'new' THEN 1 ELSE 2 END, created_at DESC")->paginate(15);
 
+        return view('tickets.index', compact('supportTicket'));
     }
 
     public function pickTicket(SupportTicket $supportTicket)
@@ -123,5 +125,4 @@ class SupportTicketController extends Controller
 
         return redirect()->back()->with("status", "Ticket is completed.");
     }
-
 }
