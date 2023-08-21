@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $supportTicket = SupportTicket::paginate(10);
+        $supportTicket = SupportTicket::orderByRaw("CASE WHEN status = 'new' THEN 1 ELSE 2 END, created_at DESC")->paginate(15);
 
         return view('tickets.index', compact('supportTicket'));
     }
