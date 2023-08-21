@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\SupportTicket;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $supportTicket = SupportTicket::paginate(10);
+
+        return view('tickets.index', compact('supportTicket'));
     }
 }
