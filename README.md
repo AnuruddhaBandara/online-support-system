@@ -37,8 +37,25 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 ```
 php artisan migrate
+php artisan db:seed --class=UsersTableSeeder
 
 npm install && npm run dev
 
 php artisan serve
+```
+
+Please use below credentials to login as a Support Ticket Agent
+
+```
+email: anuruddha@testmail.com
+password: password
+
+email: nisala@testmail.com
+password: password
+
+email: kasun@testmail.com
+password: password
+
+email: akila@testmail.com
+password: password
 ```
