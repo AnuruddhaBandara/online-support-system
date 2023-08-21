@@ -26,6 +26,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
+checkout to dev branch and get a pull
 
 ```
 php artisan migrate
