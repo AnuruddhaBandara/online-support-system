@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSupportTicketRequest;
 use App\Models\SupportTicket;
+use App\Notifications\SupportTicketCreatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Jobs\SendEmailToCustomer;
@@ -47,13 +48,15 @@ class SupportTicketController extends Controller
             'reference_number' => $uniqueReference
         ]);
 
+        $supportTicket->notify(new SupportTicketCreatedNotification($supportTicket));
+
         return redirect()->back()->with("status", "A ticket with ID:' $uniqueReference' has been submitted.");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(String $reference)
+    public function show(string $reference)
     {
         // dd($reference);
         $supportTicket = SupportTicket::where('reference_number', $reference)->first();
